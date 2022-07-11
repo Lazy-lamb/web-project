@@ -43,8 +43,8 @@ function getUserInfo() {
         //不论是否请求成功,都会调用complete函数
         complete: function complete(res) {
             console.log(res);
-            //使用responseJSON拿到服务器响应回来的数据
-            /* if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
+            /* //使用responseJSON拿到服务器响应回来的数据
+            if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
                 layer.alert('请先登录！', { icon: 2 });
                 //清空token缓存
                 localStorage.removeItem('token')
@@ -61,14 +61,16 @@ function renderAvatar(user) {
     var name = user.nickname || user.username
         // 2.设置欢迎文本
     $("#welcome").html("欢迎&nbsp;&nbsp;" + name)
-        //3.按需渲染用户头像
+        //3.按需渲染用户头像  user.user_pic用户自定义头像
     if (user.user_pic !== null) {
         //渲染用户头像
         $('.layui-nav-img').attr('src', user.user_pic).show()
         $('.text-avatar').hide()
+    } else {
+        //渲染文本头像
+        $('.layui-nav-img').hide()
+        var first = name[0].toUpperCase()
+        $('.text-avatar').html(first).show()
     }
-    //渲染文本头像
-    $('.layui-nav-img').hide()
-    var first = name[0].toUpperCase()
-    $('.text-avatar').html(first).show()
+
 }
